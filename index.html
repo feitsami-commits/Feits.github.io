@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Chen — Personal Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f4f7f4;
+      --warm-white: #f9fbf9;
+      --sand: #d8e8d8;
+      --terracotta: #5a9a6a;
+      --rust: #3d7a50;
+      --bark: #2d4d35;
+      --sage: #8ab89a;
+      --muted: #7a9280;
+      --text: #2a3d2e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3rem;
+      background: rgba(253, 246, 238, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(193, 113, 79, 0.12);
+    }
+
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      color: var(--bark);
+      font-style: italic;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 4rem;
+    }
+
+    .hero-text { animation: fadeUp 0.9s ease both; }
+
+    .hero-greeting {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .hero-name {
+      font-family: 'Lora', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1.1;
+      color: var(--bark);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tag {
+      background: var(--sand);
+      color: var(--bark);
+      font-size: 0.78rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--terracotta);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.75rem 1.8rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .hero-cta:hover { background: var(--rust); transform: translateY(-2px); }
+
+    .hero-visual {
+      animation: fadeUp 1.1s ease 0.2s both;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-card {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 60px rgba(92, 61, 46, 0.1);
+    }
+
+    .avatar-placeholder {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sand), var(--terracotta));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lora', serif;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-name {
+      font-family: 'Lora', serif;
+      font-size: 1.3rem;
+      color: var(--bark);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--sand);
+    }
+
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Lora', serif;
+      font-size: 1.5rem;
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.1rem;
+    }
+
+    /* SECTION COMMON */
+    section { padding: 6rem 3rem; }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--bark);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--warm-white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+    }
+
+    .about-text p strong {
+      color: var(--bark);
+      font-weight: 500;
+    }
+
+    .interests-list {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .interest-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--bark);
+    }
+
+    .interest-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      flex-shrink: 0;
+    }
+
+    .about-deco {
+      position: relative;
+    }
+
+    .deco-card {
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .deco-card-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .deco-card-content {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      color: var(--bark);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--cream); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .project-card {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--terracotta), var(--sage));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(92, 61, 46, 0.12);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--sand), var(--terracotta));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-type {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--terracotta);
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+
+    .project-name {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      color: var(--bark);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stack-tag {
+      background: var(--sand);
+      color: var(--bark);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      font-size: 0.82rem;
+      color: var(--terracotta);
+      text-decoration: none;
+      font-weight: 400;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+      padding-bottom: 1px;
+    }
+
+    .project-link:hover { border-color: var(--terracotta); }
+
+    /* MOMENTS */
+    #moments { background: var(--warm-white); }
+
+    .moments-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 200px;
+      gap: 1rem;
+    }
+
+    .moment-item {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .moment-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .moment-item:nth-child(2) { grid-column: span 4; grid-row: span 1; }
+    .moment-item:nth-child(3) { grid-column: span 3; grid-row: span 1; }
+    .moment-item:nth-child(4) { grid-column: span 4; grid-row: span 1; }
+    .moment-item:nth-child(5) { grid-column: span 3; grid-row: span 2; }
+    .moment-item:nth-child(6) { grid-column: span 4; grid-row: span 1; }
+
+    .moment-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: transform 0.4s ease;
+    }
+
+    .moment-item:hover .moment-placeholder { transform: scale(1.04); }
+
+    .moment-item:nth-child(1) .moment-placeholder { background: linear-gradient(135deg, #7ab88a, #5a9a6a); }
+    .moment-item:nth-child(2) .moment-placeholder { background: linear-gradient(135deg, #b4c8b8, #8ab89a); }
+    .moment-item:nth-child(3) .moment-placeholder { background: linear-gradient(135deg, #c8d4c8, #9ab09a); }
+    .moment-item:nth-child(4) .moment-placeholder { background: linear-gradient(135deg, #a8c4b0, #6a9e7a); }
+    .moment-item:nth-child(5) .moment-placeholder { background: linear-gradient(135deg, #b8d0bc, #7aaa88); }
+    .moment-item:nth-child(6) .moment-placeholder { background: linear-gradient(135deg, #c0d8c4, #8ab89a); }
+
+    .moment-emoji { font-size: 2.5rem; }
+    .moment-caption {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.9);
+      font-style: italic;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .moment-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(92, 61, 46, 0.4);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .moment-item:hover .moment-overlay { opacity: 1; }
+
+    .moment-tag {
+      background: rgba(255,255,255,0.9);
+      color: var(--bark);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: #2d3d32;
+      text-align: center;
+    }
+
+    #contact .section-label { color: var(--sand); }
+    #contact .section-title { color: var(--warm-white); margin-bottom: 1rem; }
+    #contact .section-desc { color: rgba(255,255,255,0.5); margin: 0 auto 3rem; }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .contact-btn:hover { transform: translateY(-2px); }
+
+    .contact-btn.primary {
+      background: var(--terracotta);
+      color: #fff;
+    }
+
+    .contact-btn.secondary {
+      background: rgba(255,255,255,0.1);
+      color: var(--sand);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .contact-btn.secondary:hover { background: rgba(255,255,255,0.15); }
+
+    footer {
+      background: #2d3d32;
+      padding: 1.5rem 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* COURSES */
+    .courses-table {
+      border: 1px solid var(--sand);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      max-width: 780px;
+    }
+
+    .courses-header {
+      display: grid;
+      grid-template-columns: 120px 1fr 90px;
+      padding: 0.9rem 1.8rem;
+      background: var(--sand);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .course-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 90px;
+      padding: 1.1rem 1.8rem;
+      border-bottom: 1px solid var(--sand);
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .course-row:hover { background: var(--cream); }
+    .course-row:last-child { border-bottom: none; }
+
+    .course-code {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .course-title {
+      font-size: 0.95rem;
+      color: var(--bark);
+    }
+
+    .course-credits {
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: right;
+      padding-right: 0.5rem;
+    }
+
+    .course-total {
+      background: var(--cream);
+    }
+
+    .course-total .course-title {
+      font-weight: 500;
+      color: var(--bark);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .course-total .course-credits {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 3rem;
+        gap: 2.5rem;
+      }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .moments-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 160px;
+      }
+      .moment-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">alex chen</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#moments">Moments</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-greeting">Hello, I'm</p>
+      <h1 class="hero-name">Alex <em>Chen</em></h1>
+      <p class="hero-bio">A junior studying Computer Science at State University. I love building things that solve real problems — and finding beauty in the everyday moments in between.</p>
+      <div class="hero-tags">
+        <span class="tag">CS Student</span>
+        <span class="tag">Python &amp; Java</span>
+        <span class="tag">Coffee Enthusiast</span>
+        <span class="tag">Amateur Photographer</span>
+      </div>
+      <a href="#projects" class="hero-cta">See my work →</a>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="avatar-placeholder">AC</div>
+        <div class="card-name">Alex Chen</div>
+        <div class="card-subtitle">CS Junior · State University</div>
+        <div class="card-stats">
+          <div class="stat">
+            <div class="stat-num">7</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Years</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Curiosity</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p class="section-label">A little about me</p>
+          <h2 class="section-title">Code, curiosity,<br><em style="font-family:Lora,serif;color:var(--terracotta)">& coffee</em></h2>
+          <p>Hi! I'm Alex, a junior at State University majoring in Computer Science with a focus on software engineering and data. I fell in love with coding in high school when I built a little game for fun — and never really stopped.</p>
+          <p>When I'm not debugging or studying, you'll find me <strong>exploring the city with my camera</strong>, cooking something experimental in my tiny dorm kitchen, or losing track of time at the local bookstore.</p>
+          <p>I believe the best programs, like the best stories, come from genuine curiosity about the world.</p>
+          <div class="interests-list">
+            <div class="interest-item"><div class="interest-dot"></div>Algorithms & Data Structures</div>
+            <div class="interest-item"><div class="interest-dot"></div>Film Photography</div>
+            <div class="interest-item"><div class="interest-dot"></div>Machine Learning</div>
+            <div class="interest-item"><div class="interest-dot"></div>Hiking & Nature</div>
+            <div class="interest-item"><div class="interest-dot"></div>Open Source</div>
+            <div class="interest-item"><div class="interest-dot"></div>Reading Sci-Fi</div>
+          </div>
+        </div>
+        <div class="about-deco reveal">
+          <div class="deco-card">
+            <div class="deco-card-label">Currently reading</div>
+            <div class="deco-card-content">"The Art of Doing Science and Engineering" — Richard Hamming</div>
+          </div>
+          <div class="deco-card">
+            <div class="deco-card-label">Latest obsession</div>
+            <div class="deco-card-content">Building a tiny compiler from scratch. It's terrifying and wonderful.</div>
+          </div>
+          <div class="deco-card">
+            <div class="deco-card-label">Fun fact</div>
+            <div class="deco-card-content">I've visited 12 coffee shops on campus and ranked them all in a spreadsheet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label reveal">CS Class Projects</p>
+      <h2 class="section-title reveal">Things I've <em style="font-family:Lora,serif;color:var(--terracotta)">built</em></h2>
+      <p class="section-desc reveal">A selection of projects from my coursework. Each one taught me something new — about code, about problem-solving, and about patience.</p>
+      <div class="projects-grid">
+
+        <div class="project-card reveal">
+          <div class="project-icon">💻</div>
+          <div class="project-type">CS 2300 · 4.0 Credits</div>
+          <h3 class="project-name">Computer Science I</h3>
+          <p class="project-desc">Introduction to programming concepts, problem-solving, and software development fundamentals. Covered variables, control flow, functions, and basic data structures.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Programming Fundamentals</span>
+            <span class="stack-tag">Algorithms</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🧩</div>
+          <div class="project-type">CS 2400 · 4.0 Credits</div>
+          <h3 class="project-name">Computer Science II</h3>
+          <p class="project-desc">Continuation of CS I with deeper focus on object-oriented programming, inheritance, polymorphism, and introductory algorithm analysis.</p>
+          <div class="project-stack">
+            <span class="stack-tag">OOP</span>
+            <span class="stack-tag">Java</span>
+            <span class="stack-tag">Algorithm Analysis</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">∑</div>
+          <div class="project-type">CS 2600 · 3.0 Credits</div>
+          <h3 class="project-name">Discrete Structures</h3>
+          <p class="project-desc">Mathematical foundations of computer science: logic, set theory, relations, functions, graph theory, combinatorics, and proof techniques.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Logic</span>
+            <span class="stack-tag">Graph Theory</span>
+            <span class="stack-tag">Proofs</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Notes →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">⚙️</div>
+          <div class="project-type">CS 2800 · 3.0 Credits</div>
+          <h3 class="project-name">Computer and Assembler Language</h3>
+          <p class="project-desc">Low-level programming using assembly language, memory addressing, registers, stack operations, and interfacing with higher-level languages.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Assembly</span>
+            <span class="stack-tag">x86</span>
+            <span class="stack-tag">Memory Management</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🔐</div>
+          <div class="project-type">CS 3380 · 3.0 Credits</div>
+          <h3 class="project-name">Fundamentals of Networking and Information Security</h3>
+          <p class="project-desc">Network protocols, TCP/IP architecture, cryptographic principles, and common security vulnerabilities. Hands-on labs with packet analysis and secure communication.</p>
+          <div class="project-stack">
+            <span class="stack-tag">TCP/IP</span>
+            <span class="stack-tag">Cryptography</span>
+            <span class="stack-tag">Wireshark</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🔲</div>
+          <div class="project-type">CS 3410 · 3.0 Credits</div>
+          <h3 class="project-name">Digital Logic and Computer Organization</h3>
+          <p class="project-desc">Boolean algebra, logic gates, combinational and sequential circuits, CPU architecture, memory hierarchy, and instruction set design.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Digital Logic</span>
+            <span class="stack-tag">VHDL</span>
+            <span class="stack-tag">CPU Architecture</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-icon">🌲</div>
+          <div class="project-type">CS 3420 · 4.0 Credits</div>
+          <h3 class="project-name">Data Structures</h3>
+          <p class="project-desc">In-depth study of linked lists, stacks, queues, trees, heaps, hash tables, and graphs. Algorithm complexity analysis and practical implementations.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Java</span>
+            <span class="stack-tag">Trees &amp; Graphs</span>
+            <span class="stack-tag">Big-O Analysis</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section id="courses" style="background: var(--warm-white);">
+    <div class="section-inner">
+      <p class="section-label reveal">Academic record</p>
+      <h2 class="section-title reveal">My <em style="font-family:Lora,serif;color:var(--terracotta)">Coursework</em></h2>
+      <p class="section-desc reveal">Courses I've completed as part of my Computer Science degree — building a foundation from the ground up.</p>
+
+      <div class="courses-table reveal">
+        <div class="courses-header">
+          <span>Course</span>
+          <span>Title</span>
+          <span>Credits</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 2300</span>
+          <span class="course-title">Computer Science I</span>
+          <span class="course-credits">4.0</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 2400</span>
+          <span class="course-title">Computer Science II</span>
+          <span class="course-credits">4.0</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 2600</span>
+          <span class="course-title">Discrete Structures</span>
+          <span class="course-credits">3.0</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 2800</span>
+          <span class="course-title">Computer and Assembler Language</span>
+          <span class="course-credits">3.0</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 3380</span>
+          <span class="course-title">Fundamentals of Networking and Information Security</span>
+          <span class="course-credits">3.0</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 3410</span>
+          <span class="course-title">Digital Logic and Computer Organization</span>
+          <span class="course-credits">3.0</span>
+        </div>
+        <div class="course-row">
+          <span class="course-code">CS 3420</span>
+          <span class="course-title">Data Structures</span>
+          <span class="course-credits">4.0</span>
+        </div>
+        <div class="course-row course-total">
+          <span></span>
+          <span>Total Credits</span>
+          <span class="course-credits">24.0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOMENTS -->
+  <section id="moments">
+    <div class="section-inner">
+      <p class="section-label reveal">Life outside the terminal</p>
+      <h2 class="section-title reveal">Little <em style="font-family:Lora,serif;color:var(--terracotta)">moments</em></h2>
+      <p class="section-desc reveal">The spaces between code commits — hikes, late-night diners, campus sunsets, and quiet afternoons.</p>
+      <div class="moments-grid">
+        <div class="moment-item reveal">
+          <div class="moment-placeholder">
+            <div class="moment-emoji">🌅</div>
+            <div class="moment-caption">Sunrise before finals week</div>
+          </div>
+          <div class="moment-overlay"><span class="moment-tag">Campus</span></div>
+        </div>
+        <div class="moment-item reveal">
+          <div class="moment-placeholder">
+            <div class="moment-emoji">🏔️</div>
+            <div class="moment-caption">Winter break hike</div>
+          </div>
+          <div class="moment-overlay"><span class="moment-tag">Travel</span></div>
+        </div>
+        <div class="moment-item reveal">
+          <img src="/mnt/user-data/uploads/Screenshot_20260218_173817_Chrome.jpg" alt="Latte art at my favorite coffee shop" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+          <div class="moment-overlay"><span class="moment-tag">Daily Life</span></div>
+        </div>
+        <div class="moment-item reveal">
+          <div class="moment-placeholder">
+            <div class="moment-emoji">🎸</div>
+            <div class="moment-caption">Open mic at the student union</div>
+          </div>
+          <div class="moment-overlay"><span class="moment-tag">Events</span></div>
+        </div>
+        <div class="moment-item reveal">
+          <div class="moment-placeholder">
+            <div class="moment-emoji">🌿</div>
+            <div class="moment-caption">Botanical garden afternoon</div>
+          </div>
+          <div class="moment-overlay"><span class="moment-tag">Nature</span></div>
+        </div>
+        <div class="moment-item reveal">
+          <div class="moment-placeholder">
+            <div class="moment-emoji">🍜</div>
+            <div class="moment-caption">2am ramen run with the crew</div>
+          </div>
+          <div class="moment-overlay"><span class="moment-tag">Friends</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label">Get in touch</p>
+      <h2 class="section-title">Let's <em style="font-family:Lora,serif;">talk</em></h2>
+      <p class="section-desc">Whether it's a project idea, a question, or just saying hi — my inbox is always open.</p>
+      <div class="contact-links">
+        <a href="mailto:alex.chen@university.edu" class="contact-btn primary">✉ Send an email</a>
+        <a href="https://github.com" class="contact-btn secondary">⌥ GitHub</a>
+        <a href="https://linkedin.com" class="contact-btn secondary">in LinkedIn</a>
+        <a href="#" class="contact-btn secondary">📄 Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed &amp; built by Alex Chen · 2025 · Made with ☕ and curiosity</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80 * (Array.from(entry.target.parentNode.children).indexOf(entry.target) % 4));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth active nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--terracotta)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
